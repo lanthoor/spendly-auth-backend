@@ -1,6 +1,6 @@
 queue_rules:
   - name: spendly-auth-backend-queue
-    merge_bot_account: lanthoor
     update_method: rebase
+    update_bot_account: lanthoor
 merge_queue:
   max_parallel_checks: 1
