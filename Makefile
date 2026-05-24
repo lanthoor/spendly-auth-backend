@@ -1,4 +1,7 @@
-.PHONY: run test tidy lint deploy
+.PHONY: all test tidy lint deploy
+
+all:
+	go build ./...
 
 run:
 	PORT=8080 go run ./cmd/main.go
