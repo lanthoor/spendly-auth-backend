@@ -25,4 +25,4 @@ deploy:
 		--timeout=10s \
 		--min-instances=0 \
 		--max-instances=1 \
-		--service-account=spendly-integrity@$$(gcloud config get-value project).iam.gserviceaccount.com
+		--service-account=google-play-integrity-verifier@spendly-481115.iam.gserviceaccount.com

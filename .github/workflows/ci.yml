@@ -65,4 +65,4 @@ jobs:
             --timeout=10s \
             --min-instances=0 \
             --max-instances=1 \
-            --service-account=spendly-integrity@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+            --service-account=${{ secrets.WIF_SERVICE_ACCOUNT }}
