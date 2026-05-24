@@ -1,6 +1,8 @@
 # Play Integrity Backend Service
 
-## Status: Planned
+## Status: Implemented
+
+**Repo:** https://github.com/lanthoor/spendly-auth-backend
 
 ---
 
@@ -191,18 +193,21 @@ client library gives idiomatic access to the Play Integrity decode API.
 ### 5.2 Project Structure
 
 ```
-spendly-integrity-function/
+auth-backend/
+├── .github/workflows/ci.yml   # CI: PR build/test, main deploy to GCP
+├── Makefile
 ├── go.mod
 ├── go.sum
-├── function.go
+├── function.go                # Cloud Function entry point + helpers
+├── function_test.go           # unit tests
 └── cmd/
-    └── main.go          # optional local dev server
+    └── main.go                # local dev server
 ```
 
 ### 5.3 `go.mod`
 
 ```
-module github.com/lanthoor/spendly-integrity
+module github.com/lanthoor/spendly-auth-backend
 
 go 1.23
 
@@ -226,6 +231,7 @@ import (
     "time"
 
     "cloud.google.com/go/auth/credentials"
+    "google.golang.org/api/option"
     playintegrity "google.golang.org/api/playintegrity/v1"
 )
 
@@ -281,7 +287,7 @@ func decodeIntegrityToken(ctx context.Context, token string) (*playintegrity.Tok
         return nil, err
     }
 
-    svc, err := playintegrity.NewService(ctx, playintegrity.WithBaseURL(apiBaseURL), playintegrity.WithCredentials(creds))
+    svc, err := playintegrity.NewService(ctx, option.WithEndpoint(apiBaseURL), option.WithAuthCredentials(creds))
     if err != nil {
         return nil, err
     }
@@ -364,7 +370,7 @@ import (
     "net/http"
     "os"
 
-    "github.com/lanthoor/spendly-integrity"
+    "github.com/lanthoor/spendly-auth-backend"
 )
 
 func main() {
